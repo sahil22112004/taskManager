@@ -1,5 +1,5 @@
 
-import { IsArray, IsString, IsEmail, IsNumberString,IsNotEmpty ,ValidateNested ,ArrayMinSize ,ArrayMaxSize, Min, IsDate, IsDateString} from 'class-validator';
+import { IsMongoId,IsArray, IsString, IsEmail, IsNumberString,IsNotEmpty ,ValidateNested ,ArrayMinSize ,ArrayMaxSize, Min, IsDate, IsDateString} from 'class-validator';
 import { Type ,Transform ,} from 'class-transformer';
 import { createsubTasksDto } from './subTasks.dto';
 
@@ -9,7 +9,7 @@ export class createTasksDto{
     @IsNotEmpty({message:'this field cannot be emty'})
     title:string
 
-    @IsNumberString()
+    @IsMongoId()
     @IsNotEmpty({message:'this field cannot be emty'})
     userid:string
 

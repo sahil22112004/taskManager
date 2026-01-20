@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { createTasksDto } from '../dto/tasks.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { createTasksDto } from './dto/tasks.dto';
+import type { TaskQuery } from './interface/querInterface';
+import { Query } from '@nestjs/common';
+
 
 @Controller('tasks')
 export class TasksController {
@@ -11,42 +13,49 @@ export class TasksController {
   create(@Body() createTaskDto: createTasksDto) {  
     return this.tasksService.create(createTaskDto);
   }
+
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  findAll(@Query() query: TaskQuery) {
+    return this.tasksService.findAll(query);
   }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+    return this.tasksService.findOne(id);
   }
 
   @Patch(':id/markCompleted')
   updateToComplete(@Param('id') id: string) {
-    return this.tasksService.updateToComplete(+id);
+    return this.tasksService.updateToComplete(id);
   }
+
   @Patch(':id/markPending')
   updateToPending(@Param('id') id: string) {
-    return this.tasksService.updateToPending(+id);
+    return this.tasksService.updateToPending(id);
   }
+
   @Patch(':id/markInProcess')
   updateToInprocess(@Param('id') id: string) {
-    return this.tasksService.updateToInprocess(+id);
+    return this.tasksService.updateToInprocess(id);
   }
+
   @Patch('subtask/:id/markCompleted')
   subtaskupdateToComplete(@Param('id') id: string) {
-    return this.tasksService.subtaskupdateToComplete(+id);
+    return this.tasksService.subtaskupdateToComplete(id);
   }
+
   @Patch('subtask/:id/markPending')
   subtaskupdateToPending(@Param('id') id: string) {
-    return this.tasksService.subtaskupdateToPending(+id);
+    return this.tasksService.subtaskupdateToPending(id);
   }
+
   @Patch('subtask/:id/markInProcess')
   subtaskupdateToInprocess(@Param('id') id: string) {
-    return this.tasksService.subtaskupdateToInprocess(+id);
+    return this.tasksService.subtaskupdateToInprocess(id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+    return this.tasksService.remove(id);
   }
 }
